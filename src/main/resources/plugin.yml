@@ -1,0 +1,8 @@
+name: GuardianSkyWars
+version: ${project.version}
+main: dev.mruniverse.guardianskywars.GuardianSkyWars
+api-version: 1.16
+softdepend: [ PlaceholderAPI ]
+authors: [ MrUniverse44, Sebastnchan ]
+description: SkyWars plugin created by Darkness Development
+website: rigox.club

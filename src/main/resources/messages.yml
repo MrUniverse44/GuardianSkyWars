@@ -1,0 +1,116 @@
+#   _____                     _ _                _____ _       __          __
+#  / ____|                   | (_)              / ____| |      \ \        / /
+# | |  __ _   _  __ _ _ __ __| |_  __ _ _ __   | (___ | | ___   \ \  /\  / /_ _ _ __ ___
+# | | |_ | | | |/ _` | '__/ _` | |/ _` | '_ \   \___ \| |/ / | | \ \/  \/ / _` | '__/ __|
+# | |__| | |_| | (_| | | | (_| | | (_| | | | |  ____) |   <| |_| |\  /\  / (_| | |  \__ \
+#  \_____|\__,_|\__,_|_|  \__,_|_|\__,_|_| |_| |_____/|_|\_\\__, | \/  \/ \__,_|_|  |___/
+#                                                            __/ |
+#                                                           |___/
+# Created by Darkness Development
+# Version: 1.0.0-SNAPSHOT
+# Compatibility: 1.8.X-1.16.X
+messages:
+  prefix: '&3&lD&b&lSW &8| '
+  game:
+    join-game: '&e%player% &7has joined the game! &d(%game_online%/%game_max%)!'
+    join-team: '&e%player% &7has joined your team! &d(%team_online%/%team_max%)!'
+    leave-game: '&e%player% &7has left the game! &d(&b%game_online/%game_max%)!'
+    leave-team: '&e%player% &7has left your team! &d(%team_online%/%team_max%)!'
+    playAgainButton: '&a&lCLICK HERE &eto play again.'
+    game-count:
+      start: '&eThe game starts in &c%time% &e%seconds%!'
+      cages: '&eCages open in &c%time% &e%seconds%!'
+    gameInfo:
+      startGame:
+        - '&a[bx][bx][bx][bx][bx][bx][bx][bx][bx][bx][bx][bx][bx][bx][bx][bx][bx][bx][bx][bx][bx][bx][bx]'
+        - '<center>&f&lSkyWars'
+        - ' '
+        - '<center>&e&lGather resources and equipment on your island'
+        - '<center>&e&lIn order to eliminate every other player'
+        - '<center>&e&lGo to the center island for special chests'
+        - '<center>&e&lwith special items!'
+        - ' '
+        - '&a[bx][bx][bx][bx][bx][bx][bx][bx][bx][bx][bx][bx][bx][bx][bx][bx][bx][bx][bx][bx][bx][bx][bx]'
+        - '<isSolo>&c&lTeaming is not allowed in Solo mode.'
+        - '<isTeam>&c&lTeaming with other teams is not allowed in Team mode.'
+      playAgain:
+        - '&a[bx][bx][bx][bx][bx][bx][bx][bx][bx][bx][bx][bx][bx][bx][bx][bx][bx][bx][bx][bx][bx][bx][bx]'
+        - ' '
+        - ' &7You want play again?:'
+        - '  &a<playAgainButton>'
+        - ' '
+        - '&a[bx][bx][bx][bx][bx][bx][bx][bx][bx][bx][bx][bx][bx][bx][bx][bx][bx][bx][bx][bx][bx][bx][bx]'
+      rewardSummary:
+        - '&a[bx][bx][bx][bx][bx][bx][bx][bx][bx][bx][bx][bx][bx][bx][bx][bx][bx][bx][bx][bx][bx][bx][bx]'
+        - <center>&e&l%gameType% - %map_name%
+        - ' '
+        - ' &7You earned:'
+        - '  &f[px] &3%game% Game Experience'
+        - '  &f[px] &a%coins% Coins'
+        - ' '
+        - '&a[bx][bx][bx][bx][bx][bx][bx][bx][bx][bx][bx][bx][bx][bx][bx][bx][bx][bx][bx][bx][bx][bx][bx]'
+    deathMessages:
+      fall: '&e%player% &7fell to their death!'
+      mob: '&e%player% &7was killed by a monster!'
+      lava: '&e%player% &7thought swimming in lava is fun!'
+      suffocation: '&e%player% &7suffocated!'
+      void: '&e%player% &7fell into the void!'
+      drowning: '&e%player% &7does not know how to swim!'
+      fire: '&e%player% &7burned to their death!'
+      fireTick: '&e%player% &7burned to their death!'
+      explosionByEntity: '&e%player% &7exploded into million pieces!'
+      explosionByBlock: '&e%player% &7exploded into million pieces!'
+      kill: '&e%player% &edeath by &c%attacker_name%'
+    titles:
+      gameStart:
+        title: '&a'
+        subtitle: '&aGame Started!'
+      cageRelease:
+        title: '&a'
+        subtitle: '&aThe runners has been released!'
+      winGame:
+        title: '&6&lVICTORY!'
+        subtitle: '&b%winner_name%&f won the game!'
+      lostGame:
+        title: '&c&lGAME OVER!'
+        subtitle: '&8%attacker_name%&f kill you!'
+  menus:
+    kits:
+      purchase: '&aKit &b%kit% &apurchased!'
+      select: '&aYou have selected the item: &b%item%'
+      enought: '&eYou need more coins to buy this.'
+  lobby:
+    actionBar: '&bYou are playing &e&lSkyWars &bwith &e&lGuardianSW'
+    bossBar: '&bYou are playing on &e&nServerName Network&b.'
+    others:
+      topFormat:
+        top: '&b================[&lTOP 10&b]================'
+        format: '&a%number% &6%player% &7- Score: &b%score%'
+        bot: '&b================[&lTOP 10&b]================'
+      gameTypes:
+        Team: Team
+        Solo: Solo
+        Double: Double
+        Ranked: Ranked
+      no-perms: '&cYou need permission &7%permission% &cfor this action.'
+      full: '&cThis game is full!'
+      gamePlaying: '&cThis arena is in game.'
+      restarting: '&cThis game is in restarting mode!'
+      playerError: '&7%player% &cis not online.'
+      customChat:
+        inGame: '&7<player_name>&8: &f%message%'
+        spectator: '&8[SPECTATOR] &7<player_name>&8: &f%message%'
+        lobby: '&7<player_name>&8: &f%message%'
+    admin:
+      create: '&aArena &b%arena_id% &acreated correctly!'
+      delete: '&aArena &b%arena_id% &aremoved correctly!'
+      arenaError: '&7%arena_id% &cdoesn''t exists'
+      setWaiting: '&aWaiting Lobby now is in &b%location%'
+      setSpawn: '&aSpawn-%spawnType% now is in &b%location%'
+      setCenter: '&aArena center now is in &b%location%'
+      setChestArea: '&aArena Chest Area now is in &b%location%'
+      setMode: '&aArena Mode now is &b%arena_mode%'
+      setCreator: '&aArena creator now is &b%arena_creator%'
+      setName: '&aArena ID: &b%arena_id% &anow has the name: &b%arena_name%'
+      saveArena: '&aArena &b%arena_name%&a(&b%arena_id%&a) was saved and enabled correctly!'
+      editArena: '&aNow you can edit arena &b%arena_name%&a(&b%arena_id%&a)'
