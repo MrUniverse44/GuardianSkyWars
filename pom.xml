@@ -63,6 +63,12 @@
             <id>sonatype</id>
             <url>https://oss.sonatype.org/content/groups/public/</url>
         </repository>
+        <repository>
+            <id>jitpack.io</id>
+            <url>https://jitpack.io</url>
+        </repository>
+
+
     </repositories>
 
     <dependencies>
@@ -72,5 +78,15 @@
             <version>1.16.5-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
+
+        <dependency>
+            <groupId>com.github.MrUniverse44</groupId>
+            <artifactId>GuardianLIB</artifactId>
+            <version>1.0.1-SNAPSHOT</version>
+            <!-- TAG = latest version, for example:
+            <version>1.0.1-SNAPSHOT</version>
+            -->
+        </dependency>
+
     </dependencies>
 </project>

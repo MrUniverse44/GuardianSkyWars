@@ -10,13 +10,12 @@
 # Version: 1.0.0-SNAPSHOT
 # Compatibility: 1.8.X-1.16.X
 messages:
-  prefix: '&3&lD&b&lSW &8| '
+  prefix: '&3&lG&b&lSW &8| '
   game:
     join-game: '&e%player% &7has joined the game! &d(%game_online%/%game_max%)!'
     join-team: '&e%player% &7has joined your team! &d(%team_online%/%team_max%)!'
     leave-game: '&e%player% &7has left the game! &d(&b%game_online/%game_max%)!'
     leave-team: '&e%player% &7has left your team! &d(%team_online%/%team_max%)!'
-    playAgainButton: '&a&lCLICK HERE &eto play again.'
     game-count:
       start: '&eThe game starts in &c%time% &e%seconds%!'
       cages: '&eCages open in &c%time% &e%seconds%!'
@@ -36,19 +35,38 @@ messages:
       playAgain:
         - '&a[bx][bx][bx][bx][bx][bx][bx][bx][bx][bx][bx][bx][bx][bx][bx][bx][bx][bx][bx][bx][bx][bx][bx]'
         - ' '
-        - ' &7You want play again?:'
-        - '  &a<playAgainButton>'
+        - ' &a<playAgainButton>'
         - ' '
         - '&a[bx][bx][bx][bx][bx][bx][bx][bx][bx][bx][bx][bx][bx][bx][bx][bx][bx][bx][bx][bx][bx][bx][bx]'
       rewardSummary:
         - '&a[bx][bx][bx][bx][bx][bx][bx][bx][bx][bx][bx][bx][bx][bx][bx][bx][bx][bx][bx][bx][bx][bx][bx]'
-        - <center>&e&l%gameType% - %map_name%
+        - '<center>&e&l%gameType% - %map_name%'
         - ' '
         - ' &7You earned:'
         - '  &f[px] &3%game% Game Experience'
         - '  &f[px] &a%coins% Coins'
         - ' '
         - '&a[bx][bx][bx][bx][bx][bx][bx][bx][bx][bx][bx][bx][bx][bx][bx][bx][bx][bx][bx][bx][bx][bx][bx]'
+    playAgainButton:
+      value:
+        - '&b[px] <button_play>'
+        - '&b[px] <button_auto>'
+        - '&b[px] <button_leave>'
+      play:
+        value: '&a¿Want play again? &lClick here&e to play again.'
+        hover: '&b&lClick to play again'
+      auto:
+        value: '&a¿Want toggle auto play-again? &lClick here&e to toggle.'
+        hover: '&b&lClick to toggle auto join'
+      leave:
+        value: '&a¿Want leave? &lClick here&e to leave.'
+        hover: '&b&lClick to leave'
+      customOptions:
+        custom1:
+          value: '&aThis is a custom message'
+          hover: '&bThis is a custom hover'
+          customAction: 'URL'
+          customResult: 'https://spigotmc.org'
     deathMessages:
       fall: '&e%player% &7fell to their death!'
       mob: '&e%player% &7was killed by a monster!'
@@ -61,13 +79,21 @@ messages:
       explosionByEntity: '&e%player% &7exploded into million pieces!'
       explosionByBlock: '&e%player% &7exploded into million pieces!'
       kill: '&e%player% &edeath by &c%attacker_name%'
+    refill:
+      name: 'Refill Event'
+      title:
+        title: '<empty>'
+        subtitle: '&aAll chest has been refilled'
+      chests:
+        line1: '&a%refill_time_left%'
+        line2: '<isEmpty>&cEmpty<else>&fItems: &a%chest_item_left%'
     titles:
       gameStart:
-        title: '&a'
+        title: '<empty>'
         subtitle: '&aGame Started!'
       cageRelease:
-        title: '&a'
-        subtitle: '&aThe runners has been released!'
+        title: '<empty>'
+        subtitle: '&aCages has been opened!'
       winGame:
         title: '&6&lVICTORY!'
         subtitle: '&b%winner_name%&f won the game!'
@@ -77,20 +103,33 @@ messages:
   menus:
     kits:
       purchase: '&aKit &b%kit% &apurchased!'
-      select: '&aYou have selected the item: &b%item%'
-      enought: '&eYou need more coins to buy this.'
+      select: '&aYou have selected the item: &b%name%'
+      enought: '&eYou need more coins to buy this kit.'
+    cages:
+      purchase: '&aCage &b%kit% &apurchased!'
+      select: '&aYou have selected the cage: &b%name%'
+      enought: '&eYou need more coins to buy this cage.'
   lobby:
     actionBar: '&bYou are playing &e&lSkyWars &bwith &e&lGuardianSW'
     bossBar: '&bYou are playing on &e&nServerName Network&b.'
     others:
       topFormat:
-        top: '&b================[&lTOP 10&b]================'
-        format: '&a%number% &6%player% &7- Score: &b%score%'
-        bot: '&b================[&lTOP 10&b]================'
+        unknownPlayer: NONE
+        chat:
+          top: '&b&lLifetime %topType%'
+          format: '&e%number%. &7%player% &8- &e%score%'
+          bot: '&a'
+        hologram:
+          top: '&b&lLifetime %topType%'
+          format: '&e%number%. &7%player% &8- &e%score%'
+          bot: '&6&lClick to toggle'
+          changeLine: '&7%other option 1% &a%showing% &7%other option 2%'
+          changingHologramMessage: '&aNow showing &l%option%&a hologram.'
       gameTypes:
         Team: Team
         Solo: Solo
         Double: Double
+        Trios: Trios
         Ranked: Ranked
       no-perms: '&cYou need permission &7%permission% &cfor this action.'
       full: '&cThis game is full!'
