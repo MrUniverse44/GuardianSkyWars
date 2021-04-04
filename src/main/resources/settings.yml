@@ -9,3 +9,17 @@
 # Created by Darkness Development
 # Version: 1.0.0-SNAPSHOT
 # Compatibility: 1.8.X-1.16.X
+settings:
+  defaultKitID: 0
+
+status:
+  waiting: '&a&lWaiting'
+  starting: '&e&lStarting'
+  playing: '&c&lPlaying'
+  restarting: '&b&lRestarting'
+
+names:
+  waiting: Waiting
+  starting: Starting
+  playing: Playing
+  restarting: Restarting
