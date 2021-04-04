@@ -14,6 +14,7 @@ public class Game {
     private final GuardianSkyWars main;
     private final String configName;
     private final List<Location> cageLocations;
+    private GameStatus gameStatus;
     private String gameName;
 
     public Game(GuardianSkyWars main,String configName,String gameName) {
@@ -21,6 +22,7 @@ public class Game {
         this.configName = configName;
         this.gameName = gameName;
         this.cageLocations = new ArrayList<>();
+        gameStatus = GameStatus.RESTARTING;
         loadCages();
     }
 
@@ -49,6 +51,8 @@ public class Game {
     public void start(GameCountType countType) {
 
     }
+
+    public void setGameStatus(GameStatus gameStatus) { this.gameStatus = gameStatus; }
 
     public List<Location> getCageLocations() { return cageLocations; }
 
