@@ -118,23 +118,34 @@ public class MainCommand implements CommandExecutor {
                     return true;
                 }
                 if(args[1].equalsIgnoreCase("game") && args.length >= 4) {
-                    gameCommand.usage(getArguments(args));
+                    if(hasPermission(sender,"gsw.admin.cmd.game",true)) {
+                        gameCommand.usage(getArguments(args));
+
+                    }
                     return true;
                 }
                 if(args[1].equalsIgnoreCase("holo") && args.length >= 4) {
-                    holoCommand.usage(getArguments(args));
+                    if(hasPermission(sender,"gsw.admin.cmd.holo",true)) {
+                        holoCommand.usage(getArguments(args));
+                    }
                     return true;
                 }
                 if(args[1].equalsIgnoreCase("coins") && args.length >= 4) {
-                    coinCommand.usage(getArguments(args));
+                    if(hasPermission(sender,"gsw.admin.cmd.coins",true)) {
+                        coinCommand.usage(getArguments(args));
+                    }
                     return true;
                 }
                 if(args[1].equalsIgnoreCase("npc") && args.length >= 4) {
-                    npcCommand.usage(getArguments(args));
+                    if(hasPermission(sender,"gsw.admin.cmd.npc",true)) {
+                        npcCommand.usage(getArguments(args));
+                    }
                     return true;
                 }
                 if(args[1].equalsIgnoreCase("worlds") && args.length >= 4) {
-                    worldsCommand.usage(getArguments(args));
+                    if(hasPermission(sender,"gsw.admin.cmd.worlds",true)) {
+                        worldsCommand.usage(getArguments(args));
+                    }
                     return true;
                 }
             }
@@ -149,7 +160,7 @@ public class MainCommand implements CommandExecutor {
         int argID = 0;
         int aID = 0;
         for(String arg : args) {
-            if(aID != 0 && aID != 1) {
+            if(aID != 0 && aID != 1 && aID != 2) {
                 arguments[argID] = arg;
                 argID++;
             }
