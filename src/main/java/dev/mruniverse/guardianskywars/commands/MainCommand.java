@@ -22,7 +22,7 @@ public class MainCommand implements CommandExecutor {
 
     public MainCommand(GuardianSkyWars main, String command) {
         this.plugin = main;
-        this.cmdPrefix = "&6/" + command;
+        this.cmdPrefix = "&e/" + command;
         gameCommand = new GameCommand(main,command);
         npcCommand = new NPCCommand(main,command);
         holoCommand = new HoloCommand(main,command);
@@ -104,56 +104,57 @@ public class MainCommand implements CommandExecutor {
                         sender.sendMessage(" ");
                         utils.sendMessage(sender,"&b------------ &aGuardian SkyWars &b------------");
                         utils.sendMessage(sender,"&6Admin - Holograms Commands:");
-                        utils.sendMessage(sender,cmdPrefix + " admin holo setHolo (topKills-topWins-playerStats) &e- &fSet Holo");
-                        utils.sendMessage(sender,cmdPrefix + " admin holo delHolo (topKills-topWins-playerStats) &e- &fDel Holo");
+                        utils.sendMessage(sender,cmdPrefix + " admin holo setHolo (kills-wins-stats) &e- &fSet Holo");
+                        utils.sendMessage(sender,cmdPrefix + " admin holo delHolo (kills-wins-stats) &e- &fDel Holo");
                         utils.sendMessage(sender,cmdPrefix + " admin holo list &e- &fList of holograms");
                         utils.sendMessage(sender,"&6Admin - NPC Commands:");
-                        utils.sendMessage(sender,cmdPrefix + " admin npc setNPC (Solo-Duos-Trios-Team-Ranked) &e- &fSet NPC");
-                        utils.sendMessage(sender,cmdPrefix + " admin npc delNPC (Solo-Duos-Trios-Team-Ranked) &e- &fDel NPC");
+                        utils.sendMessage(sender,cmdPrefix + " admin npc setNPC (Mode) &e- &fSet NPC");
+                        utils.sendMessage(sender,cmdPrefix + " admin npc delNPC (Mode) &e- &fDel NPC");
                         utils.sendMessage(sender,cmdPrefix + " admin npc list &e- &fList of NPCs");
                         utils.sendMessage(sender,"&6Admin - Coins Commands:");
                         utils.sendMessage(sender,cmdPrefix + " admin coins set (player) (coins) &e- &fSet coins of a player");
                         utils.sendMessage(sender,cmdPrefix + " admin coins add (player) (coins) &e- &fAdd coins to a player");
-                        utils.sendMessage(sender,cmdPrefix + " admin coins remove (player) (coins) &e- &fRemove coins from a player");
+                        utils.sendMessage(sender,cmdPrefix + " admin coins del (player) (coins) &e- &fDel coins of a player");
                         utils.sendMessage(sender,"&6Admin - Cages Commands:");
-                        utils.sendMessage(sender,cmdPrefix + " admin cage add (schem name) (SOLO-DUOS-TRIOS-TEAM-RANKED) &e- &fAdd Cage");
-                        utils.sendMessage(sender,cmdPrefix + " admin cage price (cageID) (price) &e- &fChange the price of an cage");
-                        utils.sendMessage(sender,cmdPrefix + " admin cage name (cageID) (name) &e- &fChange the name of an cage");
+                        utils.sendMessage(sender,cmdPrefix + " admin cage add (schem name) (Mode) &e- &fAdd Cage");
+                        utils.sendMessage(sender,cmdPrefix + " admin cage price (cID) (int) &e- &fChange the price of an cage");
+                        utils.sendMessage(sender,cmdPrefix + " admin cage name (cID) (name) &e- &fChange the name of an cage");
                         utils.sendMessage(sender,"&6Admin - Plugin Commands:");
                         utils.sendMessage(sender,cmdPrefix + " admin reload (Holograms-Messages) &e- &fReload the plugin");
                         utils.sendMessage(sender,cmdPrefix + " admin setlobby &e- &fSet Main Lobby");
+                        utils.sendMessage(sender,cmdPrefix + " admin modes &e- &fView all modes of the plugin");
                         utils.sendMessage(sender,"&b------------ &a(Page 3&l/3&a) &b------------");
                     }
                     return true;
                 }
                 if(args[1].equalsIgnoreCase("game") && args.length >= 4) {
                     if(hasPermission(sender,"gsw.admin.cmd.game",true)) {
-                        gameCommand.usage(getArguments(args));
+                        gameCommand.usage(sender,getArguments(args));
 
                     }
                     return true;
                 }
                 if(args[1].equalsIgnoreCase("holo") && args.length >= 4) {
                     if(hasPermission(sender,"gsw.admin.cmd.holo",true)) {
-                        holoCommand.usage(getArguments(args));
+                        holoCommand.usage(sender,getArguments(args));
                     }
                     return true;
                 }
                 if(args[1].equalsIgnoreCase("coins") && args.length >= 4) {
                     if(hasPermission(sender,"gsw.admin.cmd.coins",true)) {
-                        coinCommand.usage(getArguments(args));
+                        coinCommand.usage(sender,getArguments(args));
                     }
                     return true;
                 }
                 if(args[1].equalsIgnoreCase("npc") && args.length >= 4) {
                     if(hasPermission(sender,"gsw.admin.cmd.npc",true)) {
-                        npcCommand.usage(getArguments(args));
+                        npcCommand.usage(sender,getArguments(args));
                     }
                     return true;
                 }
                 if(args[1].equalsIgnoreCase("worlds") && args.length >= 4) {
                     if(hasPermission(sender,"gsw.admin.cmd.worlds",true)) {
-                        worldsCommand.usage(getArguments(args));
+                        worldsCommand.usage(sender,getArguments(args));
                     }
                     return true;
                 }
@@ -165,11 +166,11 @@ public class MainCommand implements CommandExecutor {
         return true;
     }
     private String[] getArguments(String[] args){
-        String[] arguments = new String[args.length - 3];
+        String[] arguments = new String[args.length - 2];
         int argID = 0;
         int aID = 0;
         for(String arg : args) {
-            if(aID != 0 && aID != 1 && aID != 2) {
+            if(aID != 0 && aID != 1) {
                 arguments[argID] = arg;
                 argID++;
             }

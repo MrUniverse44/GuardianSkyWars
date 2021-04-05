@@ -1,6 +1,7 @@
 package dev.mruniverse.guardianskywars.commands.admin;
 
 import dev.mruniverse.guardianskywars.GuardianSkyWars;
+import org.bukkit.command.CommandSender;
 
 public class CoinCommand {
     private final GuardianSkyWars main;
@@ -10,7 +11,7 @@ public class CoinCommand {
         this.command = command;
     }
 
-    public void usage(String[] arguments) {
+    public void usage(CommandSender sender, String[] arguments) {
 
     }
 }

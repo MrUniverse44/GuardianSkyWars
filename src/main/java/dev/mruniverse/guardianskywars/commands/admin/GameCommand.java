@@ -1,6 +1,7 @@
 package dev.mruniverse.guardianskywars.commands.admin;
 
 import dev.mruniverse.guardianskywars.GuardianSkyWars;
+import org.bukkit.command.CommandSender;
 
 import java.util.Arrays;
 
@@ -12,7 +13,7 @@ public class GameCommand {
         this.command = command;
     }
 
-    public void usage(String[] arguments) {
-        main.getLogs().debug(Arrays.toString(arguments));
+    public void usage(CommandSender sender, String[] arguments) {
+        //
     }
 }
