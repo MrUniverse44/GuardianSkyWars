@@ -2,6 +2,8 @@ package dev.mruniverse.guardianskywars.commands.admin;
 
 import dev.mruniverse.guardianskywars.GuardianSkyWars;
 
+import java.util.Arrays;
+
 public class GameCommand {
     private final GuardianSkyWars main;
     private final String command;
@@ -11,6 +13,6 @@ public class GameCommand {
     }
 
     public void usage(String[] arguments) {
-
+        main.getLogs().debug(Arrays.toString(arguments));
     }
 }

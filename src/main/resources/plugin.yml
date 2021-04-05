@@ -8,5 +8,7 @@ authors: [ MrUniverse44, Sebastnchan ]
 description: SkyWars plugin created by Darkness Development
 website: rigox.club
 commands:
-  gl:
-    description: GLib Test CMD.
+  gsw:
+    description: Plugin Main Command.
+  guardianskywars:
+    description: Plugin Main Command.

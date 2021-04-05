@@ -54,66 +54,75 @@ public class MainCommand implements CommandExecutor {
         try {
             Utils utils = plugin.getLib().getUtils();
             if (args.length == 0 || args[0].equalsIgnoreCase("help")) {
-                utils.sendMessage(sender,cmdPrefix + " join (name) &e- &7Join Arena");
-                utils.sendMessage(sender,cmdPrefix + " leave &e- &7Leave CMD");
-                if(hasPermission(sender,"gsw.admin.help",false)) utils.sendMessage(sender,cmdPrefix + " admin &e- &7Admin commands");
+                sender.sendMessage(" ");
+                utils.sendMessage(sender,"&b------------ &aGuardian SkyWars &b------------");
+                utils.sendMessage(sender,cmdPrefix + " join (name) &e- &fJoin Arena");
+                utils.sendMessage(sender,cmdPrefix + " leave &e- &fLeave CMD");
+                if(hasPermission(sender,"gsw.admin.help",false)) utils.sendMessage(sender,cmdPrefix + " admin &e- &fAdmin commands");
+                utils.sendMessage(sender,"&b------------ &aGuardian SkyWars &b------------");
                 return true;
             }
             if (args[0].equalsIgnoreCase("admin")) {
                 if(args.length == 1 || args[1].equalsIgnoreCase("1")) {
                     if(hasPermission(sender,"gsw.admin.help.game",true)) {
-                        utils.sendMessage(sender,cmdPrefix + " admin game create (game) (worldTemplate) &e- &7Create Arena");
-                        utils.sendMessage(sender,cmdPrefix + " admin game delete (game) &e- &7Delete Arena");
-                        utils.sendMessage(sender,cmdPrefix + " admin game setName (game) (name) &e- &7Set game name");
-                        utils.sendMessage(sender,cmdPrefix + " admin game setMin (game) (min) &e- &7Set Min Players");
-                        utils.sendMessage(sender,cmdPrefix + " admin game setMax (game) (max) &e- &7Set Max Players");
-                        utils.sendMessage(sender,cmdPrefix + " admin game addSC (game) &e- &7Add SuperChest");
-                        utils.sendMessage(sender,cmdPrefix + " admin game delSC (game) &e- &7Remove SuperChest");
-                        utils.sendMessage(sender,cmdPrefix + " admin game addCage (game) &e- &7Add Cage Location");
-                        utils.sendMessage(sender,cmdPrefix + " admin game removeCage (game) [cageID] &e- &7Remove Cage Location");
-                        utils.sendMessage(sender,cmdPrefix + " admin game setWaiting (game) &e- &7Set Waiting Location");
-                        utils.sendMessage(sender,cmdPrefix + " admin game setSpectator (game) &e- &7Set Spectator Location");
-                        utils.sendMessage(sender, cmdPrefix + " admin [page number]");
-                        utils.sendMessage(sender,"&e(GuardianSkyWars: Page 1&6/3&e)");
+                        sender.sendMessage(" ");
+                        utils.sendMessage(sender,"&b------------ &aGuardian SkyWars &b------------");
+                        utils.sendMessage(sender,"&6Admin - Game Commands:");
+                        utils.sendMessage(sender,cmdPrefix + " admin game create (game) (worldTemplate) &e- &fCreate Arena");
+                        utils.sendMessage(sender,cmdPrefix + " admin game delete (game) &e- &fDelete Arena");
+                        utils.sendMessage(sender,cmdPrefix + " admin game setName (game) (name) &e- &fSet game name");
+                        utils.sendMessage(sender,cmdPrefix + " admin game setMin (game) (min) &e- &fSet Min Players");
+                        utils.sendMessage(sender,cmdPrefix + " admin game setMax (game) (max) &e- &fSet Max Players");
+                        utils.sendMessage(sender,cmdPrefix + " admin game addSC (game) &e- &fAdd SuperChest");
+                        utils.sendMessage(sender,cmdPrefix + " admin game delSC (game) &e- &fRemove SuperChest");
+                        utils.sendMessage(sender,cmdPrefix + " admin game addCage (game) &e- &fAdd Cage Location");
+                        utils.sendMessage(sender,cmdPrefix + " admin game removeCage (game) [cageID] &e- &fRemove Cage Location");
+                        utils.sendMessage(sender,cmdPrefix + " admin game setWaiting (game) &e- &fSet Waiting Location");
+                        utils.sendMessage(sender,cmdPrefix + " admin game setSpectator (game) &e- &fSet Spectator Location");
+                        utils.sendMessage(sender,"&b------------ &a(Page 1&l/3&a) &b------------");
                     }
                     return true;
                 }
 
                 if(args[1].equalsIgnoreCase("2")) {
                     if(hasPermission(sender,"gsw.admin.help.worlds",true)) {
-                        utils.sendMessage(sender,cmdPrefix + " admin worlds load (name) [schematic] &e- &7Load World");
-                        utils.sendMessage(sender,cmdPrefix + " admin worlds unload (name) &e- &7Unload World");
-                        utils.sendMessage(sender,cmdPrefix + " admin worlds list &e- &7List of worlds loaded with this plugin");
-                        utils.sendMessage(sender,cmdPrefix + " admin worlds clone (name) [cloned world name] &e- &7Clone a world");
-                        utils.sendMessage(sender,cmdPrefix + " admin worlds save (name) &e- &7Save changes in a world");
-                        utils.sendMessage(sender, cmdPrefix + " admin [page number]");
-                        utils.sendMessage(sender,"&e(GuardianSkyWars: Page 2&6/3&e)");
+                        sender.sendMessage(" ");
+                        utils.sendMessage(sender,"&b------------ &aGuardian SkyWars &b------------");
+                        utils.sendMessage(sender,"&6Admin - Worlds Commands:");
+                        utils.sendMessage(sender,cmdPrefix + " admin worlds load (name) [schematic] &e- &fLoad World");
+                        utils.sendMessage(sender,cmdPrefix + " admin worlds unload (name) &e- &fUnload World");
+                        utils.sendMessage(sender,cmdPrefix + " admin worlds list &e- &fList of worlds loaded with this plugin");
+                        utils.sendMessage(sender,cmdPrefix + " admin worlds clone (name) [cloned world name] &e- &fClone a world");
+                        utils.sendMessage(sender,cmdPrefix + " admin worlds save (name) &e- &fSave changes in a world");
+                        utils.sendMessage(sender,"&b------------ &a(Page 2&l/3&a) &b------------");
                     }
                     return true;
                 }
 
                 if(args[1].equalsIgnoreCase("3")) {
                     if(hasPermission(sender,"gsw.admin.help.others",true)) {
-                        utils.sendMessage(sender,"&ePlugin Holograms:");
-                        utils.sendMessage(sender,cmdPrefix + " admin holo setHolo (topKills-topWins-playerStats) &e- &7Set Holo");
-                        utils.sendMessage(sender,cmdPrefix + " admin holo delHolo (topKills-topWins-playerStats) &e- &7Del Holo");
-                        utils.sendMessage(sender,cmdPrefix + " admin holo list &e- &7List of holograms");
-                        utils.sendMessage(sender,"&ePlugin NPCs:");
-                        utils.sendMessage(sender,cmdPrefix + " admin npc setNPC (Solo-Duos-Trios-Team-Ranked) &e- &7Set NPC");
-                        utils.sendMessage(sender,cmdPrefix + " admin npc delNPC (Solo-Duos-Trios-Team-Ranked) &e- &7Del NPC");
-                        utils.sendMessage(sender,cmdPrefix + " admin npc list &e- &7List of NPCs");
-                        utils.sendMessage(sender,"&ePlugin Coin System:");
-                        utils.sendMessage(sender,cmdPrefix + " admin coins set (player) (coins) &e- &7Set coins of a player");
-                        utils.sendMessage(sender,cmdPrefix + " admin coins add (player) (coins) &e- &7Add coins to a player");
-                        utils.sendMessage(sender,cmdPrefix + " admin coins remove (player) (coins) &e- &7Remove coins from a player");
-                        utils.sendMessage(sender,"&ePlugin Cages:");
-                        utils.sendMessage(sender,cmdPrefix + " admin cage add (schem name) (SOLO-DUOS-TRIOS-TEAM-RANKED) &e- &7Add Cage");
-                        utils.sendMessage(sender,cmdPrefix + " admin cage price (cageID) (price) &e- &7Change the price of an cage");
-                        utils.sendMessage(sender,cmdPrefix + " admin cage name (cageID) (name) &e- &7Change the name of an cage");
-                        utils.sendMessage(sender, "&ePlugin Admin Commands:");
-                        utils.sendMessage(sender,cmdPrefix + " admin reload (Holograms- &e- &7Reload the plugin");
-                        utils.sendMessage(sender, cmdPrefix + " admin [page number]");
-                        utils.sendMessage(sender,"&e(GuardianSkyWars: Page 3&6/3&e)");
+                        sender.sendMessage(" ");
+                        utils.sendMessage(sender,"&b------------ &aGuardian SkyWars &b------------");
+                        utils.sendMessage(sender,"&6Admin - Holograms Commands:");
+                        utils.sendMessage(sender,cmdPrefix + " admin holo setHolo (topKills-topWins-playerStats) &e- &fSet Holo");
+                        utils.sendMessage(sender,cmdPrefix + " admin holo delHolo (topKills-topWins-playerStats) &e- &fDel Holo");
+                        utils.sendMessage(sender,cmdPrefix + " admin holo list &e- &fList of holograms");
+                        utils.sendMessage(sender,"&6Admin - NPC Commands:");
+                        utils.sendMessage(sender,cmdPrefix + " admin npc setNPC (Solo-Duos-Trios-Team-Ranked) &e- &fSet NPC");
+                        utils.sendMessage(sender,cmdPrefix + " admin npc delNPC (Solo-Duos-Trios-Team-Ranked) &e- &fDel NPC");
+                        utils.sendMessage(sender,cmdPrefix + " admin npc list &e- &fList of NPCs");
+                        utils.sendMessage(sender,"&6Admin - Coins Commands:");
+                        utils.sendMessage(sender,cmdPrefix + " admin coins set (player) (coins) &e- &fSet coins of a player");
+                        utils.sendMessage(sender,cmdPrefix + " admin coins add (player) (coins) &e- &fAdd coins to a player");
+                        utils.sendMessage(sender,cmdPrefix + " admin coins remove (player) (coins) &e- &fRemove coins from a player");
+                        utils.sendMessage(sender,"&6Admin - Cages Commands:");
+                        utils.sendMessage(sender,cmdPrefix + " admin cage add (schem name) (SOLO-DUOS-TRIOS-TEAM-RANKED) &e- &fAdd Cage");
+                        utils.sendMessage(sender,cmdPrefix + " admin cage price (cageID) (price) &e- &fChange the price of an cage");
+                        utils.sendMessage(sender,cmdPrefix + " admin cage name (cageID) (name) &e- &fChange the name of an cage");
+                        utils.sendMessage(sender,"&6Admin - Plugin Commands:");
+                        utils.sendMessage(sender,cmdPrefix + " admin reload (Holograms-Messages) &e- &fReload the plugin");
+                        utils.sendMessage(sender,cmdPrefix + " admin setlobby &e- &fSet Main Lobby");
+                        utils.sendMessage(sender,"&b------------ &a(Page 3&l/3&a) &b------------");
                     }
                     return true;
                 }

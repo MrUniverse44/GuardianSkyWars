@@ -19,7 +19,8 @@ public final class GuardianSkyWars extends JavaPlugin {
     @Override
     public void onEnable() {
         instance = this;
-        new MainCommand(this,"gl");
+        new MainCommand(this,"gsw");
+        new MainCommand(this,"guardianskywars");
         logger = new ExternalLogger(this,"GuardianSkyWars","dev.mruniverse.guardianskywars.");
         locationUtils = new LocationUtils(this);
         fileStorage = new FileStorage(this);
