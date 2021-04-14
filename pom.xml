@@ -66,6 +66,11 @@
             <id>sonatype</id>
             <url>https://oss.sonatype.org/content/groups/public/</url>
         </repository>
+        <repository>
+            <id>glaremasters</id>
+            <url>https://repo.glaremasters.me/repository/concuncan/</url>
+        </repository>
+
     </repositories>
 
     <dependencies>
@@ -82,5 +87,10 @@
             <version>1.0.7-SNAPSHOT</version>
         </dependency>
 
+        <dependency>
+            <groupId>com.grinderwolf</groupId>
+            <artifactId>slimeworldmanager-api</artifactId>
+            <version>2.2.1</version>
+        </dependency>
     </dependencies>
 </project>

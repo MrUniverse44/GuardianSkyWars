@@ -27,7 +27,7 @@ public class MainCommand implements CommandExecutor {
         npcCommand = new NPCCommand(main,command);
         holoCommand = new HoloCommand(main,command);
         coinCommand = new CoinCommand(main,command);
-        worldsCommand = new WorldsCommand(main,command);
+        worldsCommand = new WorldsCommand(main);
         PluginCommand cmd = main.getCommand(command);
         if(cmd != null) {
             cmd.setExecutor(this);
@@ -89,7 +89,8 @@ public class MainCommand implements CommandExecutor {
                         sender.sendMessage(" ");
                         utils.sendMessage(sender,"&b------------ &aGuardian SkyWars &b------------");
                         utils.sendMessage(sender,"&6Admin - Worlds Commands:");
-                        utils.sendMessage(sender,cmdPrefix + " admin worlds load (name) [schematic] &e- &fLoad World");
+                        utils.sendMessage(sender,cmdPrefix + " admin worlds create (name) [schematic] &e- &fCreate world");
+                        utils.sendMessage(sender,cmdPrefix + " admin worlds load (name) &e- &fLoad World");
                         utils.sendMessage(sender,cmdPrefix + " admin worlds unload (name) &e- &fUnload World");
                         utils.sendMessage(sender,cmdPrefix + " admin worlds list &e- &fList of worlds loaded with this plugin");
                         utils.sendMessage(sender,cmdPrefix + " admin worlds clone (name) [cloned world name] &e- &fClone a world");

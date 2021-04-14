@@ -2,6 +2,7 @@ package dev.mruniverse.guardianskywars.files;
 
 import dev.mruniverse.guardianskywars.GuardianSkyWars;
 import dev.mruniverse.guardianskywars.enums.GuardianFiles;
+import dev.mruniverse.guardianskywars.enums.GuardianWorld;
 import dev.mruniverse.guardianskywars.enums.SaveMode;
 import java.io.File;
 import java.io.InputStream;
@@ -56,18 +57,28 @@ public class FileStorage {
 
     private final File rxKits;
 
+    private final File worldsFolder;
+
+    private final File gameBackup;
+
+    private final File schematicFolder;
+
     public FileStorage(GuardianSkyWars main) {
         this.plugin = main;
-        this.rxSettings = new File(main.getDataFolder(), "settings.yml");
-        this.rxMessages = new File(main.getDataFolder(), "messages.yml");
-        this.rxMySQL = new File(main.getDataFolder(), "mysql.yml");
-        this.rxData = new File(main.getDataFolder(), "data.yml");
-        this.rxMenus = new File(main.getDataFolder(), "menus.yml");
-        this.rxItems = new File(main.getDataFolder(), "items.yml");
-        this.rxGames = new File(main.getDataFolder(), "games.yml");
-        this.rxBoards = new File(main.getDataFolder(), "scoreboards.yml");
-        this.rxChests = new File(main.getDataFolder(), "chests.yml");
-        this.rxKits = new File(main.getDataFolder(), "kits.yml");
+        File dataFolder = main.getDataFolder();
+        this.worldsFolder = new File(dataFolder,"worlds");
+        this.gameBackup = new File(dataFolder,"backups");
+        this.schematicFolder = new File(dataFolder,"schematics");
+        this.rxSettings = new File(dataFolder, "settings.yml");
+        this.rxMessages = new File(dataFolder, "messages.yml");
+        this.rxMySQL = new File(dataFolder, "mysql.yml");
+        this.rxData = new File(dataFolder, "data.yml");
+        this.rxMenus = new File(dataFolder, "menus.yml");
+        this.rxItems = new File(dataFolder, "items.yml");
+        this.rxGames = new File(dataFolder, "games.yml");
+        this.rxBoards = new File(dataFolder, "scoreboards.yml");
+        this.rxChests = new File(dataFolder, "chests.yml");
+        this.rxKits = new File(dataFolder, "kits.yml");
         this.settings = loadConfig("settings");
         this.menus = loadConfig("menus");
         this.messages = loadConfig("messages");
@@ -241,6 +252,21 @@ public class FileStorage {
                 this.plugin.getLogs().error(String.format("A error occurred while copying the config %s to the plugin data folder. Error: %s", configName, throwable));
                 this.plugin.getLogs().error(throwable);
             }
+    }
+
+    @SuppressWarnings("ResultOfMethodCallIgnored")
+    public File getWorldsFolder(GuardianWorld guardianWorld) {
+        if(!gameBackup.exists()) gameBackup.mkdirs();
+        if(!worldsFolder.exists()) worldsFolder.mkdirs();
+        if(guardianWorld == GuardianWorld.BACKUP) {
+            return gameBackup;
+        }
+        return worldsFolder;
+    }
+    @SuppressWarnings("ResultOfMethodCallIgnored")
+    public File getSchematicFolder() {
+        if(!schematicFolder.exists()) schematicFolder.mkdirs();
+        return schematicFolder;
     }
 
     public void saveConfig(File fileToSave) {

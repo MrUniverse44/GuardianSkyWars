@@ -14,13 +14,13 @@ public enum GameStatus {
     public String getStatus() {
         FileConfiguration fileConfiguration = GuardianSkyWars.getInstance().getStorage().getControl(GuardianFiles.SETTINGS);
         String status = this.toString().toLowerCase();
-        return color(fileConfiguration.getString("status." + status));
+        return color(fileConfiguration.getString("settings.status." + status));
     }
 
     public String getName() {
         FileConfiguration fileConfiguration = GuardianSkyWars.getInstance().getStorage().getControl(GuardianFiles.SETTINGS);
         String status = this.toString().toLowerCase();
-        return color(fileConfiguration.getString("names." + status));
+        return color(fileConfiguration.getString("settings.names." + status));
     }
 
     private static String color(String message) {
