@@ -3,11 +3,13 @@ package dev.mruniverse.guardianskywars.commands;
 import dev.mruniverse.guardianlib.core.utils.Utils;
 import dev.mruniverse.guardianskywars.GuardianSkyWars;
 import dev.mruniverse.guardianskywars.commands.admin.*;
+import dev.mruniverse.guardianskywars.enums.GuardianFiles;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
 
 
 public class MainCommand implements CommandExecutor {
@@ -27,7 +29,7 @@ public class MainCommand implements CommandExecutor {
         npcCommand = new NPCCommand(main,command);
         holoCommand = new HoloCommand(main,command);
         coinCommand = new CoinCommand(main,command);
-        worldsCommand = new WorldsCommand(main);
+        worldsCommand = new WorldsCommand(main,command);
         PluginCommand cmd = main.getCommand(command);
         if(cmd != null) {
             cmd.setExecutor(this);
@@ -40,7 +42,7 @@ public class MainCommand implements CommandExecutor {
             Player player = (Player)sender;
             check = player.hasPermission(permission);
             if(sendMessage) {
-                String permissionMsg = plugin.getStorage().getLang().getString("messages.lobby.others.no-perms");
+                String permissionMsg = plugin.getStorage().getControl(GuardianFiles.MESSAGES).getString("messages.lobby.others.no-perms");
                 if (permissionMsg == null) permissionMsg = "&cYou need permission &7%permission% &cfor this action.";
                 if (!check)
                     plugin.getLib().getUtils().sendMessage(player, permissionMsg.replace("%permission%", permission));
@@ -50,7 +52,7 @@ public class MainCommand implements CommandExecutor {
     }
 
 
-    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, String[] args) {
         try {
             Utils utils = plugin.getLib().getUtils();
             if (args.length == 0 || args[0].equalsIgnoreCase("help")) {
@@ -79,7 +81,7 @@ public class MainCommand implements CommandExecutor {
                         utils.sendMessage(sender,cmdPrefix + " admin game removeCage (game) [cageID] &e- &fRemove Cage Location");
                         utils.sendMessage(sender,cmdPrefix + " admin game setWaiting (game) &e- &fSet Waiting Location");
                         utils.sendMessage(sender,cmdPrefix + " admin game setSpectator (game) &e- &fSet Spectator Location");
-                        utils.sendMessage(sender,"&b------------ &a(Page 1&l/3&a) &b------------");
+                        utils.sendMessage(sender,"&b------------ &a(Page &l1/3&a) &b------------");
                     }
                     return true;
                 }
@@ -93,9 +95,10 @@ public class MainCommand implements CommandExecutor {
                         utils.sendMessage(sender,cmdPrefix + " admin worlds load (name) &e- &fLoad World");
                         utils.sendMessage(sender,cmdPrefix + " admin worlds unload (name) &e- &fUnload World");
                         utils.sendMessage(sender,cmdPrefix + " admin worlds list &e- &fList of worlds loaded with this plugin");
+                        utils.sendMessage(sender,cmdPrefix + " admin worlds tp (name) &e- &fTeleport to a specific world");
                         utils.sendMessage(sender,cmdPrefix + " admin worlds clone (name) [cloned world name] &e- &fClone a world");
                         utils.sendMessage(sender,cmdPrefix + " admin worlds save (name) &e- &fSave changes in a world");
-                        utils.sendMessage(sender,"&b------------ &a(Page 2&l/3&a) &b------------");
+                        utils.sendMessage(sender,"&b------------ &a(Page &l2/3&a) &b------------");
                     }
                     return true;
                 }
@@ -124,7 +127,7 @@ public class MainCommand implements CommandExecutor {
                         utils.sendMessage(sender,cmdPrefix + " admin reload (Holograms-Messages) &e- &fReload the plugin");
                         utils.sendMessage(sender,cmdPrefix + " admin setlobby &e- &fSet Main Lobby");
                         utils.sendMessage(sender,cmdPrefix + " admin modes &e- &fView all modes of the plugin");
-                        utils.sendMessage(sender,"&b------------ &a(Page 3&l/3&a) &b------------");
+                        utils.sendMessage(sender,"&b------------ &a(Page &l3/3&a) &b------------");
                     }
                     return true;
                 }
@@ -159,6 +162,7 @@ public class MainCommand implements CommandExecutor {
                     }
                     return true;
                 }
+                utils.sendMessage(sender,"&cThis command doesn't exists, please use &e/gsw help &cto see all commands");
             }
             return true;
         } catch (Throwable throwable) {

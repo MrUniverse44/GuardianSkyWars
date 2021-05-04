@@ -10,6 +10,6 @@ public enum GuardianFiles {
     CHESTS,
     ITEMS,
     MESSAGES,
-    MESSAGES_ES,
+    PLUGIN_WORLDS,
     SCOREBOARD
 }

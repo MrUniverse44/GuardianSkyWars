@@ -35,11 +35,15 @@ public class FileStorage {
 
     private FileConfiguration chests;
 
+    private FileConfiguration pluginWorlds;
+
     private FileConfiguration kits;
 
     private final File rxSettings;
 
     private final File rxMessages;
+
+    private final File rxPluginWorlds;
 
     private final File rxMySQL;
 
@@ -78,6 +82,7 @@ public class FileStorage {
         this.rxGames = new File(dataFolder, "games.yml");
         this.rxBoards = new File(dataFolder, "scoreboards.yml");
         this.rxChests = new File(dataFolder, "chests.yml");
+        this.rxPluginWorlds = new File(dataFolder, "others_worlds.yml");
         this.rxKits = new File(dataFolder, "kits.yml");
         this.settings = loadConfig("settings");
         this.menus = loadConfig("menus");
@@ -88,29 +93,34 @@ public class FileStorage {
         this.games = loadConfig("games");
         this.boards = loadConfig("scoreboards");
         this.chests = loadConfig("chests");
+        this.pluginWorlds = loadConfig("others_worlds");
         this.kits = loadConfig("kits");
     }
 
     public File getFile(GuardianFiles fileToGet) {
         switch (fileToGet) {
+            case PLUGIN_WORLDS:
+                return rxPluginWorlds;
             case CHESTS:
-                return this.rxChests;
+                return rxChests;
+            case GAMES:
+                return rxGames;
             case ITEMS:
-                return this.rxItems;
+                return rxItems;
             case DATA:
-                return this.rxData;
+                return rxData;
             case MENUS:
-                return this.rxGames;
+                return rxMenus;
             case MESSAGES:
-                return this.rxMenus;
+                return rxMessages;
             case KITS:
-                return this.rxKits;
+                return rxKits;
             case MYSQL:
-                return this.rxMySQL;
+                return rxMySQL;
             case SETTINGS:
-                return this.rxMessages;
+                return rxSettings;
             case SCOREBOARD:
-                return this.rxBoards;
+                return rxBoards;
         }
         return this.rxSettings;
     }
@@ -191,48 +201,50 @@ public class FileStorage {
         try {
             switch (fileToSave) {
                 case CHESTS:
-                    getControl(GuardianFiles.CHESTS).save(this.rxChests);
+                    chests.save(this.rxChests);
                     return;
                 case ITEMS:
-                    getControl(GuardianFiles.ITEMS).save(this.rxItems);
+                    items.save(this.rxItems);
                     return;
                 case DATA:
-                    getControl(GuardianFiles.DATA).save(this.rxData);
+                    data.save(this.rxData);
                     return;
                 case KITS:
-                    getControl(GuardianFiles.KITS).save(this.rxKits);
+                    kits.save(this.rxKits);
                     return;
                 case GAMES_FILES:
-                    getControl(GuardianFiles.GAMES).save(this.rxGames);
+                    games.save(this.rxGames);
                     return;
                 case MENUS:
-                    getControl(GuardianFiles.MENUS).save(this.rxMenus);
+                    menus.save(this.rxMenus);
                     return;
                 case SCOREBOARDS:
-                    getControl(GuardianFiles.SCOREBOARD).save(this.rxBoards);
+                    boards.save(this.rxBoards);
                     return;
                 case MYSQL:
-                    getControl(GuardianFiles.MYSQL).save(this.rxMySQL);
+                    mysql.save(this.rxMySQL);
                     return;
                 case MESSAGES:
-                    getControl(GuardianFiles.MESSAGES).save(this.rxMessages);
+                    messages.save(this.rxMessages);
                     return;
                 case SETTINGS:
-                    getControl(GuardianFiles.SETTINGS).save(this.rxSettings);
+                    settings.save(this.rxSettings);
                     return;
             }
-            getControl(GuardianFiles.SETTINGS).save(this.rxSettings);
-            getControl(GuardianFiles.CHESTS).save(this.rxChests);
-            getControl(GuardianFiles.DATA).save(this.rxData);
-            getControl(GuardianFiles.KITS).save(this.rxKits);
-            getControl(GuardianFiles.GAMES).save(this.rxGames);
-            getControl(GuardianFiles.SCOREBOARD).save(this.rxBoards);
-            getControl(GuardianFiles.ITEMS).save(this.rxItems);
-            getControl(GuardianFiles.MENUS).save(this.rxMenus);
-            getControl(GuardianFiles.MYSQL).save(this.rxMySQL);
-            getControl(GuardianFiles.MESSAGES).save(this.rxMessages);
+            settings.save(rxSettings);
+            chests.save(rxChests);
+            data.save(rxData);
+            kits.save(rxKits);
+            games.save(rxGames);
+            boards.save(rxBoards);
+            items.save(rxItems);
+            menus.save(rxMenus);
+            pluginWorlds.save(rxPluginWorlds);
+            mysql.save(rxMySQL);
+            messages.save(rxMessages);
         } catch (Throwable throwable) {
-            this.plugin.getLogs().error("Can't save a file!");
+            plugin.getLogs().error("Can't save files!");
+            plugin.getLogs().error(throwable);
         }
     }
 
@@ -287,15 +299,6 @@ public class FileStorage {
         }
     }
 
-    public FileConfiguration getLang() {
-        String language = getControl(GuardianFiles.SETTINGS).getString("settings.defaultLang");
-        if(language == null) language = "en_US";
-        if(language.equalsIgnoreCase("es_ES") || language.equalsIgnoreCase("Spanish")) {
-            return getControl(GuardianFiles.MESSAGES_ES);
-        }
-        return getControl(GuardianFiles.MESSAGES);
-    }
-
     public FileConfiguration getControl(GuardianFiles fileToControl) {
         switch (fileToControl) {
             case CHESTS:
@@ -315,13 +318,17 @@ public class FileStorage {
                     this.boards = loadConfig(this.rxBoards);
                 return this.boards;
             case MENUS:
+                if (this.menus == null)
+                    this.menus = loadConfig(this.rxMenus);
+                return this.menus;
+            case GAMES:
                 if (this.games == null)
                     this.games = loadConfig(this.rxGames);
                 return this.games;
             case MESSAGES:
-                if (this.menus == null)
-                    this.menus = loadConfig(this.rxMenus);
-                return this.menus;
+                if (this.messages == null)
+                    this.messages = loadConfig(this.rxMessages);
+                return this.messages;
             case KITS:
                 if (this.kits == null)
                     this.kits = loadConfig(this.rxKits);
@@ -330,10 +337,14 @@ public class FileStorage {
                 if (this.mysql == null)
                     this.mysql = loadConfig(this.rxMySQL);
                 return this.mysql;
+            case PLUGIN_WORLDS:
+                if (this.pluginWorlds == null)
+                    this.pluginWorlds = loadConfig(this.rxPluginWorlds);
+                return this.pluginWorlds;
             case SETTINGS:
-                if (this.messages == null)
-                    this.messages = loadConfig(this.rxMessages);
-                return this.messages;
+                if (this.settings == null)
+                    this.settings = loadConfig(this.rxSettings);
+                return this.settings;
         }
         if (this.settings == null)
             this.settings = loadConfig(this.rxSettings);

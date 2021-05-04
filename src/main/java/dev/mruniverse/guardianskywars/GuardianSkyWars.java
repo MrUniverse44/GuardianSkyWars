@@ -6,6 +6,7 @@ import dev.mruniverse.guardianskywars.commands.MainCommand;
 import dev.mruniverse.guardianskywars.files.DataStorage;
 import dev.mruniverse.guardianskywars.files.FileStorage;
 import dev.mruniverse.guardianskywars.utils.LocationUtils;
+import dev.mruniverse.guardianskywars.worlds.PluginWorlds;
 import dev.mruniverse.guardianskywars.worlds.WorldController;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -17,6 +18,7 @@ public final class GuardianSkyWars extends JavaPlugin {
     private GuardianLIB lib;
     private LocationUtils locationUtils;
     private WorldController worldController;
+    private PluginWorlds pluginWorlds;
     private static GuardianSkyWars instance;
     @Override
     public void onEnable() {
@@ -29,6 +31,8 @@ public final class GuardianSkyWars extends JavaPlugin {
         worldController = new WorldController(this);
         lib = GuardianLIB.getControl();
         dataStorage = new DataStorage(this);
+        pluginWorlds = new PluginWorlds(this);
+        pluginWorlds.loadWorlds();
     }
     public WorldController getWorldController() { return worldController; }
     public DataStorage getData() { return dataStorage; }
@@ -40,6 +44,7 @@ public final class GuardianSkyWars extends JavaPlugin {
         return fileStorage;
     }
     public GuardianLIB getLib() {
+        if(lib == null) lib = GuardianLIB.getControl();
         return lib;
     }
     public static GuardianSkyWars getInstance() {

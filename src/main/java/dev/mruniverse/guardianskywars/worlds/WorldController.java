@@ -9,10 +9,10 @@ public class WorldController {
     private final GameWorld gameWorld;
     public WorldController(GuardianSkyWars plugin) {
         this.plugin = plugin;
-        if(plugin.getStorage().getControl(GuardianFiles.SETTINGS).getBoolean("settings.hooks.SlimeWorldManager") && plugin.getServer().getPluginManager().getPlugin("SlimeWorldManager") != null) {
-            gameWorld = new SlimeWorldGeneration();
-            return;
-        }
+        //if(plugin.getStorage().getControl(GuardianFiles.SETTINGS).getBoolean("settings.hooks.SlimeWorldManager") && plugin.getServer().getPluginManager().getPlugin("SlimeWorldManager") != null) {
+        //    gameWorld = new SlimeWorldGeneration();
+        //    return;
+        //}
         gameWorld = new DefaultWorld();
     }
 
