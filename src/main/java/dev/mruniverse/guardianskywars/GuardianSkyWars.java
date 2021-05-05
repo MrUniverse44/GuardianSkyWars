@@ -6,6 +6,7 @@ import dev.mruniverse.guardianskywars.commands.MainCommand;
 import dev.mruniverse.guardianskywars.enums.GuardianFiles;
 import dev.mruniverse.guardianskywars.files.DataStorage;
 import dev.mruniverse.guardianskywars.files.FileStorage;
+import dev.mruniverse.guardianskywars.games.GameManager;
 import dev.mruniverse.guardianskywars.utils.LocationUtils;
 import dev.mruniverse.guardianskywars.worlds.PluginWorlds;
 import dev.mruniverse.guardianskywars.worlds.WorldController;
@@ -20,6 +21,7 @@ public final class GuardianSkyWars extends JavaPlugin {
     private LocationUtils locationUtils;
     private WorldController worldController;
     private PluginWorlds pluginWorlds;
+    private GameManager gameManager;
     private static GuardianSkyWars instance;
     @Override
     public void onEnable() {
@@ -33,6 +35,7 @@ public final class GuardianSkyWars extends JavaPlugin {
         lib = GuardianLIB.getControl();
         dataStorage = new DataStorage(this);
         pluginWorlds = new PluginWorlds(this);
+        gameManager = new GameManager(this);
         if(getStorage().getControl(GuardianFiles.PLUGIN_WORLDS).getBoolean("worlds.toggle")) {
             pluginWorlds.loadWorlds();
         }
@@ -40,20 +43,13 @@ public final class GuardianSkyWars extends JavaPlugin {
     public WorldController getWorldController() { return worldController; }
     public DataStorage getData() { return dataStorage; }
     public PluginWorlds getPluginWorlds() { return pluginWorlds; }
-
-    public ExternalLogger getLogs() {
-        return logger;
-    }
+    public ExternalLogger getLogs() { return logger; }
+    public GameManager getGameManager() { return gameManager; }
     public LocationUtils getLocationUtils() { return locationUtils; }
-    public FileStorage getStorage() {
-        return fileStorage;
-    }
+    public FileStorage getStorage() { return fileStorage; }
+    public static GuardianSkyWars getInstance() { return instance; }
     public GuardianLIB getLib() {
         if(lib == null) lib = GuardianLIB.getControl();
         return lib;
     }
-    public static GuardianSkyWars getInstance() {
-        return instance;
-    }
-    
 }

@@ -1,47 +1,51 @@
 package dev.mruniverse.guardianskywars.games;
 
 import dev.mruniverse.guardianskywars.GuardianSkyWars;
+import dev.mruniverse.guardianskywars.enums.GameType;
 import dev.mruniverse.guardianskywars.enums.GuardianFiles;
 import dev.mruniverse.guardianskywars.enums.SaveMode;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.World;
-import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Objects;
 @SuppressWarnings("unused")
 public class GameManager {
-    private final ArrayList<Game> games = new ArrayList<>();
-    private final HashMap<World,Game> gamesWorlds = new HashMap<>();
-    //public HashMap<String,GameChests> gameChests = new HashMap<>();
-    //public HashMap<GameType,GameMenu> gameMenu = new HashMap<>();
-    //private final GameMainMenu gameMainMenu;
+    private final ArrayList<GameInfo> games = new ArrayList<>();
+    private final HashMap<World, GameInfo> gamesWorlds = new HashMap<>();
     private final GuardianSkyWars plugin;
     public GameManager(GuardianSkyWars plugin) {
         this.plugin = plugin;
-        //gameMainMenu = new GameMainMenu(plugin);
     }
-    public void loadChests() {
-        ConfigurationSection section = plugin.getStorage().getControl(GuardianFiles.CHESTS).getConfigurationSection("chests");
-        if(section == null) return;
-        //for(String chest : section.getKeys(false)) {
-        //    gameChests.put(chest,new GameChests(plugin,chest));
-        //}
-    }
-    //public GameChests getGameChest(String chestName) {
-    //    return gameChests.get(chestName);
-    //}
-    public Game getGame(String gameName) {
+    public GameInfo getGame(String gameName) {
         if (this.games.size() < 1)
             return null;
-        //for (Game game : this.games) {
-        //    if (game.getConfigName().equalsIgnoreCase(gameName))
-        //        return game;
-        //}
+        for (GameInfo game : games) {
+            if (game.getConfigName().equalsIgnoreCase(gameName))
+                return game;
+        }
         return null;
+    }
+
+    public void registerGame(String gameName) {
+        // * Working now..
+    }
+
+    public void unloadGame(String gameName) {
+        // * Working now..
+    }
+
+    public void loadGame(String gameName) {
+        // * Working now..
+    }
+
+    public void createPrivateGame(Player player) {
+        // * Coming Soon..
     }
 
     public void loadGames() {
@@ -55,12 +59,11 @@ public class GameManager {
                             mapName = gameName;
                             plugin.getStorage().save(SaveMode.GAMES_FILES);
                         }
-                        loadGameWorlds();
-                        Game game = new Game(plugin, gameName, mapName);
-                        this.games.add(game);
-                        plugin.getLogs().debug("Game " + gameName + " loaded!");
+                        GameInfo gameInfo = new GameInfo(plugin, gameName, mapName);
+                        this.games.add(gameInfo);
+                        plugin.getLogs().debug("game " + gameName + " loaded!");
                     } else {
-                        plugin.getLogs().debug("Game " + gameName + " is not enabled in games.yml, this game wasn't loaded.");
+                        plugin.getLogs().debug("game " + gameName + " is not enabled in games.yml, this game wasn't loaded.");
                     }
                 }
                 plugin.getLogs().info(this.games.size() + " game(s) loaded!");
@@ -68,14 +71,9 @@ public class GameManager {
                 plugin.getLogs().info("You don't have games created yet.");
             }
         }catch (Throwable throwable) {
-            plugin.getLogs().error("Can't load games plugin games :(");
+            plugin.getLogs().error("Can't load games of the plugin :(");
             plugin.getLogs().error(throwable);
         }
-    }
-    public void loadGameWorlds() {
-        //for(Game game : getGames()) {
-        //    gamesWorlds.put(game.gameCenter.getWorld(),game);
-        //}
     }
 
     public void addGame(String configName,String gameName) {
@@ -87,63 +85,55 @@ public class GameManager {
             gameName = configName;
             plugin.getStorage().save(SaveMode.GAMES_FILES);
         }
-        Game game = new Game(plugin,configName,gameName);
-        this.games.add(game);
-        plugin.getLogs().debug("Game " + gameName + " loaded!");
+        GameInfo gameInfo = new GameInfo(plugin,configName,gameName);
+        games.add(gameInfo);
+        plugin.getLogs().debug("GameInfo " + gameName + " loaded!");
     }
     public void delGame(String gameName) {
         if(getGame(gameName) != null) {
             this.games.remove(getGame(gameName));
         }
-        plugin.getLogs().debug("Game " + gameName + " unloaded!");
+        plugin.getLogs().debug("GameInfo " + gameName + " unloaded!");
     }
-    public ArrayList<Game> getGames() {
+    public ArrayList<GameInfo> getGames() {
         return games;
     }
-    public HashMap<World,Game> getGameWorlds() { return gamesWorlds; }
+    public HashMap<World, GameInfo> getGameWorlds() { return gamesWorlds; }
 
-    //public Game getGame(Player player) {
-    //    return plugin.getPlayerData(player.getUniqueId()).getGame();
-    //}
-
-    public Game getConfigGame(String name) {
-        if (this.games.size() < 1)
+    public GameInfo getConfigGame(String name) {
+        if(games.size() < 1)
             return null;
-        //for (Game game : this.games) {
-        //    if (game.getConfigName().equalsIgnoreCase(name))
-        //        return game;
-        //}
+        for (GameInfo game : games) {
+            if (game.getConfigName().equalsIgnoreCase(name))
+                return game;
+        }
         return null;
     }
 
     public boolean existGame(String name) {
-        boolean exist = false;
-        if(getConfigGame(name) != null) exist = true;
-        return exist;
+        return getConfigGame(name) != null;
     }
 
     public void joinGame(Player player,String gameName) {
-        //if(!existGame(gameName)) {
-        //    plugin.getUtils().sendMessage(player, Objects.requireNonNull(plugin.getStorage().getControl(GuardianFiles.MESSAGES).getString("messages.admin.arenaError")).replace("%arena_id%",gameName));
-        //    return;
-        //}
-        //Game game = getGame(gameName);
-        //game.join(player);
+        GameInfo game = getGame(gameName);
+        game.join(player);
     }
-    public void createGameFiles(String gameName) {
+    public void createGameFiles(String gameName,String worldName) {
         FileConfiguration gameFiles = plugin.getStorage().getControl(GuardianFiles.GAMES);
-        gameFiles.set("games." + gameName + ".enabled", false);
-        gameFiles.set("games." + gameName + ".time", 500);
-        gameFiles.set("games." + gameName + ".gameName", gameName);
-        gameFiles.set("games." + gameName + ".disableRain", true);
-        gameFiles.set("games." + gameName + ".max", 10);
-        gameFiles.set("games." + gameName + ".min", 2);
-        gameFiles.set("games." + gameName + ".worldTime", 0);
-        gameFiles.set("games." + gameName + ".gameType","SOLO");
-        gameFiles.set("games." + gameName + ".locations.waiting", "notSet");
-        gameFiles.set("games." + gameName + ".locations.superChests", new ArrayList<>());
-        gameFiles.set("games." + gameName + ".locations.cages", new ArrayList<>());
-        gameFiles.set("games." + gameName + ".signs", new ArrayList<>());
+        String path = "games." + gameName + ".";
+        gameFiles.set(path + "enabled", false);
+        gameFiles.set(path + "duration",500);
+        gameFiles.set(path + "max",10);
+        gameFiles.set(path + "min",2);
+        gameFiles.set(path + "time",0);
+        gameFiles.set(path + "name",gameName);
+        gameFiles.set(path + "mode","SKYISLANDS_NORMAL");
+        gameFiles.set(path + "locations.center","notSet");
+        gameFiles.set(path + "locations.waiting","notSet");
+        gameFiles.set(path + "cages", new ArrayList<>());
+        gameFiles.set(path + "center-chests", new ArrayList<>());
+        gameFiles.set(path + "super-chests", new ArrayList<>());
+        gameFiles.set(path + "signs", new ArrayList<>());
         plugin.getStorage().save(SaveMode.GAMES_FILES);
     }
     public void setWaiting(String gameName, Location location) {
@@ -157,9 +147,178 @@ public class GameManager {
         }
     }
 
+    // * Boolean, True: REMOVED, False: THIS CAGE DOESN'T EXIST.
+    public boolean removeCageLocation(String gameName,Location location) {
+        try {
+            World world = location.getWorld();
+            if(world == null) return false;
+            String gameLoc = world.getName() + "," + location.getX() + "," + location.getY() + "," + location.getZ() + "," + location.getYaw() + "," + location.getPitch();
+            List<String> cages;
+            if (plugin.getStorage().getControl(GuardianFiles.GAMES).get("games." + gameName + ".cages") != null) {
+                cages = plugin.getStorage().getControl(GuardianFiles.GAMES).getStringList("games." + gameName + ".cages");
+                if(cages.contains(gameLoc)) {
+                    cages.remove(gameLoc);
+                    plugin.getStorage().getControl(GuardianFiles.GAMES).set("games." + gameName + ".cages", cages);
+                    plugin.getStorage().save(SaveMode.GAMES_FILES);
+                    return true;
+                }
+                return false;
+            }
+            return false;
+        }catch (Throwable throwable) {
+            plugin.getLogs().error("Can't remove cage location.");
+            plugin.getLogs().error(throwable);
+        }
+        return false;
+    }
+
+    // * Boolean, True: REMOVED, False: THIS CHEST DOESN'T EXIST.
+    public boolean removeCenterChest(String gameName,Location location) {
+        try {
+            World world = location.getWorld();
+            if(world == null) return false;
+            String gameLoc = world.getName() + "," + location.getX() + "," + location.getY() + "," + location.getZ() + "," + location.getYaw() + "," + location.getPitch();
+            List<String> center;
+            if (plugin.getStorage().getControl(GuardianFiles.GAMES).get("games." + gameName + ".center-chests") != null) {
+                center = plugin.getStorage().getControl(GuardianFiles.GAMES).getStringList("games." + gameName + ".center-chests");
+                if(center.contains(gameLoc)) {
+                    center.remove(gameLoc);
+                    plugin.getStorage().getControl(GuardianFiles.GAMES).set("games." + gameName + ".center-chests", center);
+                    plugin.getStorage().save(SaveMode.GAMES_FILES);
+                    return true;
+                }
+                return false;
+            }
+            return false;
+        }catch (Throwable throwable) {
+            plugin.getLogs().error("Can't remove chest location.");
+            plugin.getLogs().error(throwable);
+        }
+        return false;
+    }
+
+    // * Boolean, True: REMOVED, False: THIS CHEST DOESN'T EXIST.
+    public boolean removeSuperChest(String gameName,Location location) {
+        try {
+            World world = location.getWorld();
+            if(world == null) return false;
+            String gameLoc = world.getName() + "," + location.getX() + "," + location.getY() + "," + location.getZ() + "," + location.getYaw() + "," + location.getPitch();
+            List<String> sChest;
+            if (plugin.getStorage().getControl(GuardianFiles.GAMES).get("games." + gameName + ".super-chests") != null) {
+                sChest = plugin.getStorage().getControl(GuardianFiles.GAMES).getStringList("games." + gameName + ".super-chests");
+                if(sChest.contains(gameLoc)) {
+                    sChest.remove(gameLoc);
+                    plugin.getStorage().getControl(GuardianFiles.GAMES).set("games." + gameName + ".super-chests", sChest);
+                    plugin.getStorage().save(SaveMode.GAMES_FILES);
+                    return true;
+                }
+                return false;
+            }
+            return false;
+        }catch (Throwable throwable) {
+            plugin.getLogs().error("Can't remove chest location.");
+            plugin.getLogs().error(throwable);
+        }
+        return false;
+    }
+
+    // * Boolean, True: ADDED, False: CAN'T ADD THIS CHEST.
+    public boolean addCenterChests(String gameName,Location location) {
+        try {
+            World world = location.getWorld();
+            if(world == null) return false;
+            String gameLoc = world.getName() + "," + location.getX() + "," + location.getY() + "," + location.getZ() + "," + location.getYaw() + "," + location.getPitch();
+            List<String> center;
+            if (plugin.getStorage().getControl(GuardianFiles.GAMES).get("games." + gameName + ".center-chests") != null) {
+                center = plugin.getStorage().getControl(GuardianFiles.GAMES).getStringList("games." + gameName + ".center-chests");
+            } else {
+                center = new ArrayList<>();
+            }
+            if(!center.contains(gameLoc)) {
+                center.add(gameLoc);
+                plugin.getStorage().getControl(GuardianFiles.GAMES).set("games." + gameName + ".center-chests", center);
+                plugin.getStorage().save(SaveMode.GAMES_FILES);
+                return true;
+            }
+            return false;
+        }catch (Throwable throwable) {
+            plugin.getLogs().error("Can't add chest location.");
+            plugin.getLogs().error(throwable);
+        }
+        return false;
+    }
+
+
+    // * Boolean, True: ADDED, False: CAN'T ADD THIS CHEST.
+    public boolean addSuperChest(String gameName,Location location) {
+        try {
+            World world = location.getWorld();
+            if(world == null) return false;
+            String gameLoc = world.getName() + "," + location.getX() + "," + location.getY() + "," + location.getZ() + "," + location.getYaw() + "," + location.getPitch();
+            List<String> sChest;
+            if (plugin.getStorage().getControl(GuardianFiles.GAMES).get("games." + gameName + ".super-chests") != null) {
+                sChest = plugin.getStorage().getControl(GuardianFiles.GAMES).getStringList("games." + gameName + ".super-chests");
+            } else {
+                sChest = new ArrayList<>();
+            }
+            if(!sChest.contains(gameLoc)) {
+                sChest.add(gameLoc);
+                plugin.getStorage().getControl(GuardianFiles.GAMES).set("games." + gameName + ".super-chests", sChest);
+                plugin.getStorage().save(SaveMode.GAMES_FILES);
+                return true;
+            }
+            return false;
+        }catch (Throwable throwable) {
+            plugin.getLogs().error("Can't add chest location.");
+            plugin.getLogs().error(throwable);
+        }
+        return false;
+    }
+
+    // * Boolean, True: ADDED, False: CAN'T ADD THIS CAGE.
+    public boolean addCageLocation(String gameName,Location location) {
+        try {
+            World world = location.getWorld();
+            if(world == null) return false;
+            String gameLoc = world.getName() + "," + location.getX() + "," + location.getY() + "," + location.getZ() + "," + location.getYaw() + "," + location.getPitch();
+            List<String> cages;
+            if (plugin.getStorage().getControl(GuardianFiles.GAMES).get("games." + gameName + ".cages") != null) {
+                cages = plugin.getStorage().getControl(GuardianFiles.GAMES).getStringList("games." + gameName + ".cages");
+            } else {
+                cages = new ArrayList<>();
+            }
+            if(!cages.contains(gameLoc)) {
+                cages.add(gameLoc);
+                plugin.getStorage().getControl(GuardianFiles.GAMES).set("games." + gameName + ".cages", cages);
+                plugin.getStorage().save(SaveMode.GAMES_FILES);
+                return true;
+            }
+            return false;
+        }catch (Throwable throwable) {
+            plugin.getLogs().error("Can't add cage location.");
+            plugin.getLogs().error(throwable);
+        }
+        return false;
+    }
+
+    // pending: addCages, removeCages, addSuperChests, removeSuperChest, addSigns, removeSigns!
+
+    public void setCenter(String gameName, Location location) {
+        try {
+            World world = location.getWorld();
+            if(world == null) return;
+            String gameLoc = world.getName() + "," + location.getX() + "," + location.getY() + "," + location.getZ() + "," + location.getYaw() + "," + location.getPitch();
+            plugin.getStorage().getControl(GuardianFiles.GAMES).set("games." + gameName + ".locations.center", gameLoc);
+            plugin.getStorage().save(SaveMode.GAMES_FILES);
+        }catch (Throwable throwable) {
+            plugin.getLogs().error("Can't set arena-center for game: " + gameName);
+            plugin.getLogs().error(throwable);
+        }
+    }
+
     public void setGameType(String gameName, GameType gameType) {
         try {
-            plugin.getStorage().getControl(GuardianFiles.GAMES).set("games." + gameName + ".gameType", gameType.toString().toUpperCase());
+            plugin.getStorage().getControl(GuardianFiles.GAMES).set("games." + gameName + ".mode", gameType.toString().toUpperCase());
             plugin.getStorage().save(SaveMode.GAMES_FILES);
         }catch (Throwable throwable) {
             plugin.getLogs().error("Can't set game Type for game: " + gameName);
@@ -169,7 +328,7 @@ public class GameManager {
 
     public void setGameName(String configName, String gameName) {
         try {
-            plugin.getStorage().getControl(GuardianFiles.GAMES).set("games." + configName + ".gameName", gameName);
+            plugin.getStorage().getControl(GuardianFiles.GAMES).set("games." + configName + ".name", gameName);
             plugin.getStorage().save(SaveMode.GAMES_FILES);
         }catch (Throwable throwable) {
             plugin.getLogs().error("Can't set game name for game: " + configName);
@@ -185,8 +344,14 @@ public class GameManager {
         plugin.getStorage().save(SaveMode.GAMES_FILES);
     }
     public void setMode(String gameName,GameType type) {
-        plugin.getStorage().getControl(GuardianFiles.GAMES).set("games." + gameName + ".gameType", type.toString().toUpperCase());
+        plugin.getStorage().getControl(GuardianFiles.GAMES).set("games." + gameName + ".mode", type.toString().toUpperCase());
         plugin.getStorage().save(SaveMode.GAMES_FILES);
+    }
+
+    public static boolean isChest(Material evalMaterial) {
+        if(evalMaterial.equals(Material.CHEST)) return true;
+        if(evalMaterial.equals(Material.TRAPPED_CHEST)) return true;
+        return evalMaterial.equals(Material.ENDER_CHEST);
     }
 
 

@@ -45,6 +45,7 @@ messages:
         - ' &7You earned:'
         - '  &f[px] &3%game% Game Experience'
         - '  &f[px] &a%coins% Coins'
+        - '<hasKills>  &f[px] &e%coins% Coins &7x &8Kill'
         - ' '
         - '&a[bx][bx][bx][bx][bx][bx][bx][bx][bx][bx][bx][bx][bx][bx][bx][bx][bx][bx][bx][bx][bx][bx][bx]'
     playAgainButton:

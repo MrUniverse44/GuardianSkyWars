@@ -1,21 +1,23 @@
 package dev.mruniverse.guardianskywars.files;
 
+import dev.mruniverse.guardianskywars.GuardianSkyWars;
+import dev.mruniverse.guardianskywars.enums.GuardianFiles;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.List;
 
-import dev.mruniverse.guardianskywars.GuardianSkyWars;
-import dev.mruniverse.guardianskywars.enums.GuardianFiles;
-
 @SuppressWarnings("unused")
 public class DataStorage {
     private final GuardianSkyWars plugin;
+    private final DataInfo dataInfo;
     private final MySQL mySQL;
     private final SQL sql;
     public DataStorage(GuardianSkyWars main) {
         plugin = main;
         mySQL = new MySQL(main);
+        dataInfo = new DataInfo(main);
         sql = new SQL(main);
     }
 
@@ -26,7 +28,7 @@ public class DataStorage {
         StringBuilder vList = new StringBuilder();
         for (String string : sLists)
             vList.append(", ").append(string).append(" VARCHAR(255)");
-        mySQL.Update("CREATE TABLE IF NOT EXISTS " + tableName + " (id INT AUTO_INCREMENT PRIMARY KEY" + vList.toString() + intList.toString() + ")");
+        mySQL.Update("CREATE TABLE IF NOT EXISTS " + tableName + " (id INT AUTO_INCREMENT PRIMARY KEY" + vList + intList + ")");
     }
 
     public void setInt(String tableName, String column, String where, String what, int integer) {
@@ -36,7 +38,6 @@ public class DataStorage {
 
     public void setString(String tableName, String column, String where, String is, String result) {
         is = is.replace("-","");
-        //mySQL.Update("UPDATE " + tableName + " SET " + column + "= '" + result + "' WHERE " + where + "= '" + is + "';");
         mySQL.pUpdate("UPDATE `" + tableName + "` SET " + column + "=? WHERE " + where + "=?;",result,is);
     }
 
@@ -71,6 +72,7 @@ public class DataStorage {
         return integer;
     }
 
+    @SuppressWarnings("BooleanMethodIsAlwaysInverted")
     public boolean isRegistered(String tableName, String where, String what) {
         what = what.replace("-","");
         try (ResultSet rs = mySQL.Query("SELECT id FROM " + tableName + " WHERE " + where + "= '" + what + "';")) {
@@ -94,7 +96,7 @@ public class DataStorage {
         }
         names = new StringBuilder(names.substring(0, names.length() - 2));
         names2 = new StringBuilder(names2.substring(0, names2.length() - 2));
-        mySQL.Update("INSERT INTO " + tableName + " (" + names.toString() + ") VALUES (" + names2.toString() + ")");
+        mySQL.Update("INSERT INTO " + tableName + " (" + names + ") VALUES (" + names2 + ")");
     }
 
     public void loadDatabase() {
@@ -108,11 +110,16 @@ public class DataStorage {
 
     public void disableDatabase() {
         if (plugin.getStorage().getControl(GuardianFiles.MYSQL).getBoolean("mysql.enabled")) {
+            dataInfo.save();
             mySQL.close();
         } else {
             sql.putData();
         }
     }
+    public DataInfo getData() {
+        return dataInfo;
+    }
+
     public MySQL getMySQL() {
         return mySQL;
     }

@@ -37,7 +37,7 @@ public class WorldsCommand {
             utils.sendMessage(sender,cmdPrefix + " admin worlds tp (name) &e- &fTeleport to a specific world");
             utils.sendMessage(sender,cmdPrefix + " admin worlds clone (name) [cloned world name] &e- &fClone a world");
             utils.sendMessage(sender,cmdPrefix + " admin worlds save (name) &e- &fSave changes in a world");
-            utils.sendMessage(sender,"&b------------ &a(Page 2&l/3&a) &b------------");
+            utils.sendMessage(sender, "&b------------------------------------");
             return;
         }
         if(arguments[0].equalsIgnoreCase("load")) {

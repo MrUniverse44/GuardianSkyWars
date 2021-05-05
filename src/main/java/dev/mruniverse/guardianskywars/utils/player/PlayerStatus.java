@@ -1,4 +1,6 @@
 package dev.mruniverse.guardianskywars.utils.player;
 
-public class PlayerStatus {
+public enum PlayerStatus {
+    IN_LOBBY,
+    IN_GAME
 }

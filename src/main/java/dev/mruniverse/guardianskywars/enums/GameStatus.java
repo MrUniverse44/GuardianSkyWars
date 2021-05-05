@@ -1,4 +1,4 @@
-package dev.mruniverse.guardianskywars.games;
+package dev.mruniverse.guardianskywars.enums;
 
 import dev.mruniverse.guardianskywars.GuardianSkyWars;
 import dev.mruniverse.guardianskywars.enums.GuardianFiles;

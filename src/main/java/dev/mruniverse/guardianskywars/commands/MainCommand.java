@@ -69,18 +69,25 @@ public class MainCommand implements CommandExecutor {
                     if(hasPermission(sender,"gsw.admin.help.game",true)) {
                         sender.sendMessage(" ");
                         utils.sendMessage(sender,"&b------------ &aGuardian SkyWars &b------------");
-                        utils.sendMessage(sender,"&6Admin - Game Commands:");
+                        utils.sendMessage(sender,"&6Admin - GameInfo Commands:");
                         utils.sendMessage(sender,cmdPrefix + " admin game create (game) (worldTemplate) &e- &fCreate Arena");
                         utils.sendMessage(sender,cmdPrefix + " admin game delete (game) &e- &fDelete Arena");
+                        utils.sendMessage(sender,cmdPrefix + " admin game setMode (game) (mode) &e- &fSet game mode &b&lOPTIONAL");
                         utils.sendMessage(sender,cmdPrefix + " admin game setName (game) (name) &e- &fSet game name");
                         utils.sendMessage(sender,cmdPrefix + " admin game setMin (game) (min) &e- &fSet Min Players");
                         utils.sendMessage(sender,cmdPrefix + " admin game setMax (game) (max) &e- &fSet Max Players");
+                        utils.sendMessage(sender,cmdPrefix + " admin game setDuration (game) (duration) &e- &fSet game duration &b&lOPTIONAL");
+                        utils.sendMessage(sender,cmdPrefix + " admin game addCC (game) &e- &fAdd CenterChest");
+                        utils.sendMessage(sender,cmdPrefix + " admin game delCC (game) &e- &fRemove CenterChest");
                         utils.sendMessage(sender,cmdPrefix + " admin game addSC (game) &e- &fAdd SuperChest");
                         utils.sendMessage(sender,cmdPrefix + " admin game delSC (game) &e- &fRemove SuperChest");
                         utils.sendMessage(sender,cmdPrefix + " admin game addCage (game) &e- &fAdd Cage Location");
                         utils.sendMessage(sender,cmdPrefix + " admin game removeCage (game) [cageID] &e- &fRemove Cage Location");
                         utils.sendMessage(sender,cmdPrefix + " admin game setWaiting (game) &e- &fSet Waiting Location");
                         utils.sendMessage(sender,cmdPrefix + " admin game setSpectator (game) &e- &fSet Spectator Location");
+                        utils.sendMessage(sender,cmdPrefix + " admin game save (game) &e- &fSave and load game.");
+                        utils.sendMessage(sender,cmdPrefix + " admin game load (game) &e- &Load game.");
+                        utils.sendMessage(sender,cmdPrefix + " admin game unload (game) &e- &fUnload game.");
                         utils.sendMessage(sender,"&b------------ &a(Page &l1/3&a) &b------------");
                     }
                     return true;

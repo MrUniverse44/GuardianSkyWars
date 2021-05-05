@@ -26,17 +26,14 @@ public class MySQL {
             con = DriverManager.getConnection(url,user,password);
             plugin.getLogs().info("Connected with MySQL! creating tables");
             List<String> integers = new ArrayList<>();
-            integers.add("Kills");
-            integers.add("Deaths");
-            integers.add("Score");
-            integers.add("Wins");
             integers.add("Coins");
-            integers.add("LevelXP");
+            integers.add("Wins");
+            integers.add("Deaths");
+            integers.add("Kills");
             List<String> strings = new ArrayList<>();
             strings.add("Player");
             strings.add("Kits");
             strings.add("SelectedKit");
-            strings.add("Rank");
             plugin.getData().createMultiTable(plugin.getStorage().getControl(GuardianFiles.MYSQL).getString("mysql.table"), integers, strings);
             plugin.getLogs().info("Tables created!");
         } catch (SQLException e) {
@@ -52,10 +49,7 @@ public class MySQL {
         if (con != null)
             try {
                 con.close();
-            } catch (SQLException e) {
-                plugin.getLogs().error("Can't close mysql connection!");
-                plugin.getLogs().error(e);
-            }
+            } catch (SQLException ignored) { }
     }
 
     public void pUpdate(String qry,String result,String ID) {
@@ -84,7 +78,7 @@ public class MySQL {
             plugin.getLogs().error(e);
         }
     }
-
+    @SuppressWarnings("unused")
     public ResultSet pQuery(String query) {
         ResultSet rs = null;
         try {
@@ -110,4 +104,3 @@ public class MySQL {
         return rs;
     }
 }
-

@@ -3,18 +3,15 @@ package dev.mruniverse.guardianskywars.files;
 import dev.mruniverse.guardianskywars.GuardianSkyWars;
 import dev.mruniverse.guardianskywars.enums.GuardianFiles;
 import dev.mruniverse.guardianskywars.enums.SaveMode;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 public class SQL {
-    public HashMap<String, Integer> kills = new HashMap<>();
-    public HashMap<String, Integer> deaths = new HashMap<>();
-    public HashMap<String, Integer> wins = new HashMap<>();
-    public HashMap<String, Integer> score = new HashMap<>();
     public HashMap<String, Integer> coins = new HashMap<>();
-    public HashMap<String, Integer> levelXP = new HashMap<>();
     public HashMap<String, String> kits = new HashMap<>();
     public HashMap<String, String> selectedKits = new HashMap<>();
     private final GuardianSkyWars plugin;
@@ -23,84 +20,53 @@ public class SQL {
     }
 
     public void putData() {
-        if (kills.size() != 0)
-            for (Map.Entry<String, Integer> k : kills.entrySet())
-                plugin.getStorage().getControl(GuardianFiles.DATA).set("Kills." + k.getKey(), k.getValue());
-        if (deaths.size() != 0)
-            for (Map.Entry<String, Integer> k : deaths.entrySet())
-                plugin.getStorage().getControl(GuardianFiles.DATA).set("Deaths." + k.getKey(), k.getValue());
-        if (wins.size() != 0)
-            for (Map.Entry<String, Integer> k : wins.entrySet())
-                plugin.getStorage().getControl(GuardianFiles.DATA).set("Wins." + k.getKey(), k.getValue());
-        if (score.size() != 0)
-            for (Map.Entry<String, Integer> k : score.entrySet())
-                plugin.getStorage().getControl(GuardianFiles.DATA).set("Score." + k.getKey(), k.getValue());
         if (coins.size() != 0)
             for (Map.Entry<String, Integer> k : coins.entrySet())
-                plugin.getStorage().getControl(GuardianFiles.DATA).set("Coins." + k.getKey(), k.getValue());
-        if (levelXP.size() != 0)
-            for (Map.Entry<String, Integer> k : levelXP.entrySet())
-                plugin.getStorage().getControl(GuardianFiles.DATA).set("LevelXP." + k.getKey(), k.getValue());
+                plugin.getStorage().getControl(GuardianFiles.DATA).set("coins." + k.getKey(), k.getValue());
         if (kits.size() != 0)
             for (Map.Entry<String, String> k : kits.entrySet())
-                plugin.getStorage().getControl(GuardianFiles.DATA).set("UserKits." + k.getKey(), k.getValue());
+                plugin.getStorage().getControl(GuardianFiles.DATA).set("kits." + k.getKey(), k.getValue());
         if (selectedKits.size() != 0)
             for (Map.Entry<String, String> k : selectedKits.entrySet())
-                plugin.getStorage().getControl(GuardianFiles.DATA).set("selectedKits." + k.getKey(), k.getValue());
+                plugin.getStorage().getControl(GuardianFiles.DATA).set("selected-kit." + k.getKey(), k.getValue());
         plugin.getStorage().save(SaveMode.DATA);
     }
 
     public void loadData() {
-        if (plugin.getStorage().getControl(GuardianFiles.DATA).contains("Kills"))
-            for (String str : plugin.getStorage().getContent(GuardianFiles.DATA,"Kills",true)) {
-                int p = plugin.getStorage().getControl(GuardianFiles.DATA).getInt("Kills." + str);
-                kills.put(str.replace("Kills.", ""), p);
+        FileConfiguration file = plugin.getStorage().getControl(GuardianFiles.DATA);
+        if(plugin.getStorage().getControl(GuardianFiles.DATA).contains("selected-kit")) {
+            for (String player : plugin.getStorage().getContent(GuardianFiles.DATA,"selected-kit",false)) {
+                selectedKits.put(player,file.getString("selected-kit." + player));
             }
-        if (plugin.getStorage().getControl(GuardianFiles.DATA).contains("Deaths"))
-            for (String str : plugin.getStorage().getContent(GuardianFiles.DATA,"Deaths",true)) {
-                int p = plugin.getStorage().getControl(GuardianFiles.DATA).getInt("Deaths." + str);
-                deaths.put(str.replace("Deaths.", ""), p);
+        }
+        if(plugin.getStorage().getControl(GuardianFiles.DATA).contains("kits")) {
+            for (String player : plugin.getStorage().getContent(GuardianFiles.DATA,"kits",false)) {
+                selectedKits.put(player,file.getString("kits." + player));
             }
-        if (plugin.getStorage().getControl(GuardianFiles.DATA).contains("UserKits"))
-            for (String str : plugin.getStorage().getContent(GuardianFiles.DATA,"UserKits",true)) {
-                String p = plugin.getStorage().getControl(GuardianFiles.DATA).getString("UserKits." + str);
-                kits.put(str.replace("UserKits.", ""), p);
+        }
+        if(plugin.getStorage().getControl(GuardianFiles.DATA).contains("coins")) {
+            for (String player : plugin.getStorage().getContent(GuardianFiles.DATA,"coins",false)) {
+                selectedKits.put(player,file.getString("coins." + player));
             }
-        if (plugin.getStorage().getControl(GuardianFiles.DATA).contains("selectedKits"))
-            for (String str : plugin.getStorage().getContent(GuardianFiles.DATA,"selectedKits",true)) {
-                String p = plugin.getStorage().getControl(GuardianFiles.DATA).getString("selectedKits." + str);
-                selectedKits.put(str.replace("selectedKits.", ""), p);
-            }
-        if (plugin.getStorage().getControl(GuardianFiles.DATA).contains("Wins"))
-            for (String str : plugin.getStorage().getContent(GuardianFiles.DATA,"Wins",true)) {
-                int p = plugin.getStorage().getControl(GuardianFiles.DATA).getInt("Wins." + str);
-                wins.put(str.replace("Wins.", ""), p);
-            }
-        if (plugin.getStorage().getControl(GuardianFiles.DATA).contains("Score"))
-            for (String str : plugin.getStorage().getContent(GuardianFiles.DATA,"Score",true)) {
-                int p = plugin.getStorage().getControl(GuardianFiles.DATA).getInt("Score." + str);
-                score.put(str.replace("Score.", ""), p);
-            }
-        if (plugin.getStorage().getControl(GuardianFiles.DATA).contains("LevelXP"))
-            for (String str : plugin.getStorage().getContent(GuardianFiles.DATA,"LevelXP",true)) {
-                int p = plugin.getStorage().getControl(GuardianFiles.DATA).getInt("LevelXP." + str);
-                levelXP.put(str.replace("LevelXP.", ""), p);
-            }
-        if (plugin.getStorage().getControl(GuardianFiles.DATA).contains("Coins"))
-            for (String str : plugin.getStorage().getContent(GuardianFiles.DATA,"Coins",true)) {
-                int p = plugin.getStorage().getControl(GuardianFiles.DATA).getInt("Coins." + str);
-                levelXP.put(str.replace("Coins.", ""), p);
-            }
+        }
     }
+
+    public int getCoins(UUID uuid) { return coins.get(uuid.toString().replace("-","")); }
+    public String getKits(UUID uuid) { return kits.get(uuid.toString().replace("-","")); }
+    public String getSelectedKit(UUID uuid) { return selectedKits.get(uuid.toString().replace("-","")); }
+    public boolean exist(UUID uuid) { return kits.containsKey(uuid.toString().replace("-","")); }
 
     public void createPlayer(Player player) {
-        kills.put(player.getUniqueId().toString(), 0);
-        deaths.put(player.getUniqueId().toString(), 0);
-        wins.put(player.getUniqueId().toString(), 0);
-        coins.put(player.getUniqueId().toString(), 0);
-        levelXP.put(player.getUniqueId().toString(), 0);
-        kits.put(player.getUniqueId().toString(),plugin.getStorage().getControl(GuardianFiles.SETTINGS).getString("settings.defaultKitID"));
-        selectedKits.put(player.getUniqueId().toString(),"NONE");
+        coins.put(player.getUniqueId().toString().replace("-",""), 0);
+        String defaultRunner = plugin.getStorage().getControl(GuardianFiles.SETTINGS).getString("settings.default-kits.runner");
+        String defaultBeast = plugin.getStorage().getControl(GuardianFiles.SETTINGS).getString("settings.default-kits.beast");
+        String defaultKiller = plugin.getStorage().getControl(GuardianFiles.SETTINGS).getString("settings.default-kits.killer");
+        if(plugin.getStorage().getControl(GuardianFiles.SETTINGS).getBoolean("settings.default-kits.toggle")) {
+
+            kits.put(player.getUniqueId().toString().replace("-",""),"K" + defaultRunner + ",K" + defaultBeast + ",K" + defaultKiller);
+        } else{
+            kits.put(player.getUniqueId().toString().replace("-",""),"NONE");
+        }
+        selectedKits.put(player.getUniqueId().toString().replace("-",""),"NONE");
     }
 }
-
