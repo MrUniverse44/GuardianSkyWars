@@ -105,8 +105,6 @@ public class WorldsCommand {
                         if(schematic.exists()) {
                             Location location = new Location(Bukkit.getWorld(arguments[1]), 0, 70, 0);
                             main.getLib().getSchematics().pasteSchematic(schematic, location);
-                            World world = Bukkit.getWorld(arguments[1]);
-                            if(world != null) world.setSpawnLocation(new Location(world, 0, 71, 0));
                         } else {
                             utils.sendMessage(sender,"&cThis schematic doesn't exists, the world was generated but the schematic wasn't pasted!");
                             utils.sendMessage(sender,"&cYou need paste the schematic manually");
@@ -115,6 +113,8 @@ public class WorldsCommand {
                         utils.sendMessage(sender,"&aCan't paste schematic &b" + arguments[2] + " &ain this world");
                     }
                 }
+                World world = Bukkit.getWorld(arguments[1]);
+                if(world != null) world.setSpawnLocation(new Location(world, 0, 71, 0));
                 worlds.add(arguments[1]);
                 utils.sendMessage(sender,"&aWorld &b" + arguments[1] + "&a created!");
                 return;
