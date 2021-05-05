@@ -45,7 +45,7 @@ public class PluginWorlds {
             if(world != null) {
                 world.setDifficulty(Difficulty.valueOf(difficulty.toUpperCase()));
                 Location location = plugin.getLocationUtils().getLocationFromString(spawnLocation);
-                if(location != null) world.setSpawnLocation(location);
+                if(location != null) world.setSpawnLocation(location.getBlockX(),location.getBlockY(),location.getBlockZ());
                 world.setPVP(worldConfiguration.getBoolean(path + "pvp"));
                 if(worldConfiguration.getBoolean(path + "monsters")) world.setMonsterSpawnLimit(0);
                 if(worldConfiguration.getBoolean(path + "animals")) {

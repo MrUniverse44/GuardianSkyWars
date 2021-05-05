@@ -114,7 +114,7 @@ public class WorldsCommand {
                     }
                 }
                 World world = Bukkit.getWorld(arguments[1]);
-                if(world != null) world.setSpawnLocation(new Location(world, 0, 102, 0));
+                if(world != null) world.setSpawnLocation(0,102,0);
                 worlds.add(arguments[1]);
                 utils.sendMessage(sender,"&aWorld &b" + arguments[1] + "&a created!");
                 return;

@@ -3,6 +3,7 @@ package dev.mruniverse.guardianskywars;
 import dev.mruniverse.guardianlib.core.GuardianLIB;
 import dev.mruniverse.guardianlib.core.utils.ExternalLogger;
 import dev.mruniverse.guardianskywars.commands.MainCommand;
+import dev.mruniverse.guardianskywars.enums.GuardianFiles;
 import dev.mruniverse.guardianskywars.files.DataStorage;
 import dev.mruniverse.guardianskywars.files.FileStorage;
 import dev.mruniverse.guardianskywars.utils.LocationUtils;
@@ -32,10 +33,14 @@ public final class GuardianSkyWars extends JavaPlugin {
         lib = GuardianLIB.getControl();
         dataStorage = new DataStorage(this);
         pluginWorlds = new PluginWorlds(this);
-        pluginWorlds.loadWorlds();
+        if(getStorage().getControl(GuardianFiles.PLUGIN_WORLDS).getBoolean("worlds.toggle")) {
+            pluginWorlds.loadWorlds();
+        }
     }
     public WorldController getWorldController() { return worldController; }
     public DataStorage getData() { return dataStorage; }
+    public PluginWorlds getPluginWorlds() { return pluginWorlds; }
+
     public ExternalLogger getLogs() {
         return logger;
     }
