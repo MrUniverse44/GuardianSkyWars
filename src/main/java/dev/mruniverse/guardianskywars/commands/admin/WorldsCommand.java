@@ -47,6 +47,7 @@ public class WorldsCommand {
                 utils.sendMessage(sender, "&aWorld &b" + arguments[1] + "&a loaded!");
                 return;
             }
+            enoughtArguments(sender);
             return;
         }
         if(arguments[0].equalsIgnoreCase("unload")) {
@@ -56,6 +57,8 @@ public class WorldsCommand {
                 utils.sendMessage(sender, "&aWorld &b" + arguments[1] + "&a unloaded!");
                 return;
             }
+            enoughtArguments(sender);
+            return;
         }
         if(arguments[0].equalsIgnoreCase("save")) {
             if(arguments.length == 2) {
@@ -63,6 +66,9 @@ public class WorldsCommand {
                 utils.sendMessage(sender,"&aWorld &b" + arguments[1] + "&a saved!");
                 return;
             }
+            enoughtArguments(sender);
+            return;
+
         }
         if(arguments[0].equalsIgnoreCase("tp")) {
             if(arguments.length == 2) {
@@ -76,6 +82,8 @@ public class WorldsCommand {
                 }
                 utils.sendMessage(sender,"&cThis command is only for users!");
             }
+            enoughtArguments(sender);
+            return;
         }
         if(arguments[0].equalsIgnoreCase("list")) {
             if(worlds.size() > 0) {
@@ -111,6 +119,8 @@ public class WorldsCommand {
                 utils.sendMessage(sender,"&aWorld &b" + arguments[1] + "&a created!");
                 return;
             }
+            enoughtArguments(sender);
+            return;
         }
         if(arguments[0].equalsIgnoreCase("clone")) {
             if(arguments.length == 3) {
@@ -119,7 +129,13 @@ public class WorldsCommand {
                 utils.sendMessage(sender,"&aWorld &b" + arguments[1] + "&a cloned to &b" + arguments[2] + "&a!");
                 return;
             }
+            enoughtArguments(sender);
+            return;
         }
         utils.sendMessage(sender,"&cThis command doesn't exists! use &e/gsw admin worlds help &cto to find a correct syntax of the command.");
+    }
+
+    public void enoughtArguments(CommandSender sender) {
+        main.getLib().getUtils().sendMessage(sender,"&cEnought Arguments! use &e/gsw admin worlds help &cto see correct usage!");
     }
 }
